@@ -38,7 +38,7 @@ public static class SetsAndMaps
         return pairsList.ToArray();
     }
 
-    // 2. SummarizeDegrees - Sin cambios (ya funciona)
+    // 2. SummarizeDegrees 
     public static Dictionary<string, int> SummarizeDegrees(string filename)
     {
         var degreeCounts = new Dictionary<string, int>();
