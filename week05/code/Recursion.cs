@@ -3,7 +3,7 @@ using System.Collections;
 public static class Recursion
 {
     /// <summary>
-    /// #############
+/// #############
     /// # Problem 1 #
     /// #############
     /// Using recursion, find the sum of 1^2 + 2^2 + 3^2 + ... + n^2
@@ -11,16 +11,15 @@ public static class Recursion
     /// in terms of recursive call on a smaller problem and 
     /// to identify a base case (terminating case).  If the value of
     /// n <= 0, just return 0.   A loop should not be used.
-    /// </summary>
     public static int SumSquaresRecursive(int n)
-{
-    // Base case: si n <= 0 devuelve 0 (el enunciado lo pide)
-    if (n <= 0)
-        return 0;
+    {
+        // Base case
+        if (n <= 0)
+            return 0;
 
-    // Caso recursivo: n² + SumSquaresRecursive(n-1)
-    return (n * n) + SumSquaresRecursive(n - 1);
-}
+        // Recursive case: n² + suma hasta (n-1)
+        return (n * n) + SumSquaresRecursive(n - 1);
+    }
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
