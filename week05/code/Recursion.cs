@@ -13,30 +13,14 @@ public static class Recursion
     /// n <= 0, just return 0.   A loop should not be used.
     /// </summary>
     public static int SumSquaresRecursive(int n)
-    {
-        // TODO Start Problem 1
+{
+    // Base case: si n <= 0 devuelve 0 (el enunciado lo pide)
+    if (n <= 0)
         return 0;
-    }
 
-    /// <summary>
-    /// #############
-    /// # Problem 2 #
-    /// #############
-    /// Using recursion, insert permutations of length
-    /// 'size' from a list of 'letters' into the results list.  This function
-    /// should assume that each letter is unique (i.e. the 
-    /// function does not need to find unique permutations).
-    ///
-    /// In mathematics, we can calculate the number of permutations
-    /// using the formula: len(letters)! / (len(letters) - size)!
-    ///
-    /// For example, if letters was [A,B,C] and size was 2 then
-    /// the following would the contents of the results array after the function ran: AB, AC, BA, BC, CA, CB (might be in 
-    /// a different order).
-    ///
-    /// You can assume that the size specified is always valid (between 1 
-    /// and the length of the letters list).
-    /// </summary>
+    // Caso recursivo: n² + SumSquaresRecursive(n-1)
+    return (n * n) + SumSquaresRecursive(n - 1);
+}
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
