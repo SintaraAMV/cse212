@@ -1,45 +1,68 @@
-public class Node
+using System;
+
+namespace Trees
 {
-    public int Data { get; set; }
-    public Node? Right { get; private set; }
-    public Node? Left { get; private set; }
-
-    public Node(int data)
+    public class Node
     {
-        this.Data = data;
-    }
+        public int Data { get; private set; }
+        public Node Left { get; set; }
+        public Node Right { get; set; }
 
-    public void Insert(int value)
-    {
-        // TODO Start Problem 1
-
-        if (value < Data)
+        public Node(int data)
         {
-            // Insert to the left
-            if (Left is null)
-                Left = new Node(value);
-            else
-                Left.Insert(value);
+            Data = data;
         }
-        else
+
+        /// #############
+        /// # Problem 1 #
+        /// #############
+        public void Insert(int value)
         {
-            // Insert to the right
-            if (Right is null)
-                Right = new Node(value);
+            if (value == Data)
+                return; // No duplicates - unique values only
+
+            if (value < Data)
+            {
+                if (Left == null)
+                    Left = new Node(value);
+                else
+                    Left.Insert(value);
+            }
             else
-                Right.Insert(value);
+            {
+                if (Right == null)
+                    Right = new Node(value);
+                else
+                    Right.Insert(value);
+            }
         }
-    }
 
-    public bool Contains(int value)
-    {
-        // TODO Start Problem 2
-        return false;
-    }
+        /// #############
+        /// # Problem 2 #
+        /// #############
+        public bool Contains(int value)
+        {
+            if (value == Data)
+                return true;
 
-    public int GetHeight()
-    {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+            if (value < Data)
+                return Left != null && Left.Contains(value);
+            else
+                return Right != null && Right.Contains(value);
+        }
+
+        /// #############
+        /// # Problem 4 #
+        /// #############
+        public int GetHeight()
+        {
+            if (Left == null && Right == null)
+                return 1; // Only root node
+
+            int leftHeight = Left?.GetHeight() ?? 0;
+            int rightHeight = Right?.GetHeight() ?? 0;
+
+            return 1 + Math.Max(leftHeight, rightHeight);
+        }
     }
 }

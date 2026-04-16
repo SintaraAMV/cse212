@@ -1,106 +1,69 @@
-using System.Collections;
+using System;
+using System.Collections.Generic;
 
-public class BinarySearchTree : IEnumerable<int>
+namespace Trees
 {
-    private Node? _root;
-
-    /// <summary>
-    /// Insert a new node in the BST.
-    /// </summary>
-    public void Insert(int value)
+    public class BinarySearchTree
     {
-        // Create new node
-        Node newNode = new(value);
-        // If the list is empty, then point both head and tail to the new node.
-        if (_root is null)
+        public Node Root { get; private set; }
+
+        public void Insert(int value)
         {
-            _root = newNode;
+            if (Root == null)
+                Root = new Node(value);
+            else
+                Root.Insert(value);
         }
-        // If the list is not empty, then only head will be affected.
-        else
+
+        public bool Contains(int value)
         {
-            _root.Insert(value);
+            return Root != null && Root.Contains(value);
         }
-    }
 
-    /// <summary>
-    /// Check to see if the tree contains a certain value
-    /// </summary>
-    /// <param name="value">The value to look for</param>
-    /// <returns>true if found, otherwise false</returns>
-    public bool Contains(int value)
-    {
-        return _root != null && _root.Contains(value);
-    }
-
-    /// <summary>
-    /// Yields all values in the tree
-    /// </summary>
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        // call the generic version of the method
-        return GetEnumerator();
-    }
-
-    /// <summary>
-    /// Iterate forward through the BST
-    /// </summary>
-    public IEnumerator<int> GetEnumerator()
-    {
-        var numbers = new List<int>();
-        TraverseForward(_root, numbers);
-        foreach (var number in numbers)
+        /// #############
+        /// # Problem 3 #
+        /// #############
+        public void TraverseBackward(Action<int> action)
         {
-            yield return number;
+            TraverseBackwardHelper(Root, action);
         }
-    }
 
-    private void TraverseForward(Node? node, List<int> values)
-    {
-        if (node is not null)
+        private void TraverseBackwardHelper(Node node, Action<int> action)
         {
-            TraverseForward(node.Left, values);
-            values.Add(node.Data);
-            TraverseForward(node.Right, values);
-        }
-    }
+            if (node == null)
+                return;
 
-    /// <summary>
-    /// Iterate backward through the BST.
-    /// </summary>
-    public IEnumerable Reverse()
-    {
-        var numbers = new List<int>();
-        TraverseBackward(_root, numbers);
-        foreach (var number in numbers)
+            // Right -> Visit -> Left (for reverse order)
+            TraverseBackwardHelper(node.Right, action);
+            action(node.Data);
+            TraverseBackwardHelper(node.Left, action);
+        }
+
+        public IEnumerable<int> Reversed()
         {
-            yield return number;
+            var list = new List<int>();
+            TraverseBackward(value => list.Add(value));
+            return list;
         }
-    }
 
-    private void TraverseBackward(Node? node, List<int> values)
-    {
-        // TODO Problem 3
-    }
+        public IEnumerable<int> TraverseForward()
+        {
+            var list = new List<int>();
+            TraverseForwardHelper(Root, value => list.Add(value));
+            return list;
+        }
 
-    /// <summary>
-    /// Get the height of the tree
-    /// </summary>
-    public int GetHeight()
-    {
-        if (_root is null)
-            return 0;
-        return _root.GetHeight();
-    }
+        private void TraverseForwardHelper(Node node, Action<int> action)
+        {
+            if (node == null) return;
+            TraverseForwardHelper(node.Left, action);
+            action(node.Data);
+            TraverseForwardHelper(node.Right, action);
+        }
 
-    public override string ToString()
-    {
-        return "<Bst>{" + string.Join(", ", this) + "}";
-    }
-}
-
-public static class IntArrayExtensionMethods {
-    public static string AsString(this IEnumerable array) {
-        return "<IEnumerable>{" + string.Join(", ", array.Cast<int>()) + "}";
+        public int GetHeight()
+        {
+            return Root?.GetHeight() ?? 0;
+        }
     }
 }
