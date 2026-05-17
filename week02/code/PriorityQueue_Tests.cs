@@ -10,7 +10,7 @@ public void TestPriorityQueue_1()
    {
     // Scenario: Enqueue items with different priorities, including a tie at the highest priority.
     // Expected Result: Dequeue returns the highest priority first; ties are returned in FIFO order.
-    // Defect(s) Found: (fill after first run, if any)
+    // Defect(s) Found: Initial implementation did not correctly remove the highest-priority item while preserving FIFO order for ties. After fixing Dequeue, this test passes.
 
     var priorityQueue = new PriorityQueue();
 
