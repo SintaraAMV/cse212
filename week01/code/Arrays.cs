@@ -39,7 +39,7 @@ public static class Arrays
     // 3) If amount == 0, do nothing and return.
     // 4) Compute split = n - amount (cut point).
     // 5) Copy the tail (last 'amount' elements) using GetRange.
-    // 6) Remove that tail from the original list using RemoveRange.
+    // 6) Remove that tail from the original list using RemoveRange
     // 7) Insert the tail at the front using InsertRange.
 
     int n = data.Count;
